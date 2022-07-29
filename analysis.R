@@ -12,9 +12,15 @@ head(gbsg)
 # modeling the data
 res.cox <- coxph(Surv(rfstime,status)~age+meno+size+grade+nodes+pgr+er+hormon, data=gbsg)
 
-# fro
+# from the model we observed that age, meno, size, er are not relevant
 
+# modleing with relevant features
+res.cox <- coxph(Surv(rfstime,status)~grade+nodes+pgr+hormon, data=gbsg)
 
+# summary of the different factors
+summary(res.cox)
 
+# Plot the baseline survival function
+ggsurvplot(survfit(res.cox, data=gbsg), color = "#2E9FDF", ggtheme = theme_minimal())
 
 
